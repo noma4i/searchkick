@@ -21,6 +21,7 @@ class SynonymsTest < Minitest::Test
     assert_search "burger", ["Hamburger"]
   end
 
+  # no longer stemmed
   def test_stemmed
     store_names ["Burger"]
     assert_search "hamburger", ["Burger"]
