@@ -3,10 +3,10 @@ class Product
     synonyms: [
       ["clorox", "bleach"],
       ["burger", "hamburger"],
-      ["bandaid", "bandages"],
+      ["bandaids", "bandages"],
       ["UPPERCASE", "lowercase"],
-      "lightbulb => led,lightbulb",
-      "lightbulb => halogenlamp"
+      "led => led,lightbulb",
+      "halogen lamp => lightbulb"
     ],
     suggest: [:name, :color],
     conversions: [:conversions],

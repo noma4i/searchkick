@@ -290,7 +290,7 @@ module Searchkick
 
         if synonyms.any?
           settings[:analysis][:filter][:searchkick_synonym] = {
-            type: "synonym",
+            type: "synonym_graph",
             # only remove a single space from synonyms so three-word synonyms will fail noisily instead of silently
             synonyms: synonyms.select { |s| s.size > 1 }.map { |s| s.is_a?(Array) ? s.map { |s2| s2.sub(/\s+/, "") }.join(",") : s }.map(&:downcase)
           }
@@ -303,10 +303,8 @@ module Searchkick
           # - Only apply the synonym expansion at index time
           # - Don't have the synonym filter applied search
           # - Use directional synonyms where appropriate. You want to make sure that you're not injecting terms that are too general.
-          settings[:analysis][:analyzer][default_analyzer][:filter].insert(2, "searchkick_synonym")
-
-          %w(word_start word_middle word_end).each do |type|
-            settings[:analysis][:analyzer]["searchkick_#{type}_index".to_sym][:filter].insert(2, "searchkick_synonym")
+          [:searchkick_search2, :searchkick_word_search].each do |analyzer|
+            settings[:analysis][:analyzer][analyzer][:filter].insert(2, "searchkick_synonym")
           end
         end
 

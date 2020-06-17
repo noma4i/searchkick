@@ -23,7 +23,7 @@ class SynonymsTest < Minitest::Test
 
   def test_stemmed
     store_names ["Burger"]
-    assert_search "hamburgers", ["Burger"]
+    assert_search "hamburger", ["Burger"]
   end
 
   def test_word_start
